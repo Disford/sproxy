@@ -28,6 +28,10 @@ const fastify = Fastify({
 				else socket.end();
 			});
 	},
+	https: {
+		key: fs.readFileSync(path.join(__dirname, '..', 'https', 'fastify.key')),
+    	cert: fs.readFileSync(path.join(__dirname, '..', 'https', 'fastify.cert'))
+	}
 });
 
 const publicPath = fileURLToPath(new URL("../public/", import.meta.url));
