@@ -6,6 +6,7 @@ import Fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 import { fileURLToPath } from 'node:url';
 import { dirname } from "node:path";
+import * as fs from "node:fs";
 
 // static paths
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
@@ -29,8 +30,8 @@ const fastify = Fastify({
 			});
 	},
 	https: {
-		key: fs.readFileSync(path.join(__dirname, '..', 'https', 'fastify.key')),
-    	cert: fs.readFileSync(path.join(__dirname, '..', 'https', 'fastify.cert'))
+		key: fs.readFileSync(join(__dirname, '..', 'fastify.key')),
+    	cert: fs.readFileSync(join(__dirname, '..', 'fastify.cert'))
 	}
 });
 
