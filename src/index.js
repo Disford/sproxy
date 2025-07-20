@@ -1,4 +1,4 @@
-import { createServer } from "node:http";
+import { createServer } from "node:https";
 import { join } from "node:path";
 import { hostname } from "node:os";
 import wisp from "wisp-server-node";
@@ -16,12 +16,17 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const httpsOptions = {
+	key: fs.readFileSync(join(__dirname, '../key-key+2.pem')),
+	cert: fs.readFileSync(join(__dirname, '../key+2.pem')),
+};
+
 const fastify = Fastify({
 	serverFactory: (handler) => {
-		return createServer()
+		return createServer(httpsOptions)
 			.on("request", (req, res) => {
-				// res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-				// res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+				res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+				res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
 				handler(req, res);
 			})
 			.on("upgrade", (req, socket, head) => {
