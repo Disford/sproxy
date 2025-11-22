@@ -1,14 +1,21 @@
 let url = "https://google.com/";
 
+alert("search - ctrl+`\nchange url - alt+`\ngo back in history - alt+left arrow\ngo forward in history - alt+right arrow\nreload - alt+r")
+
 const keydown = (e) => {
-    console.log(e.altKey);
-    console.log(e.code);
-    console.log(e.shiftKey);
-    if(e.code === "Backquote" && e.shiftKey) {
+    let frame = document.getElementById("uv-frame");
+    if(e.code === "Backquote" && e.ctrlKey) {
+        url = "https://duck.com/search?q="+prompt("search");
+        run();
+    } else if(e.code === "Backquote" && e.altKey) {
         url = prompt("url");
         run();
+    } else if(e.code === "ArrowRight" && e.altKey) {
+        frame.contentWindow.history.forward();
+    } else if(e.code === "ArrowLeft" && e.altKey) {
+        frame.contentWindow.history.back();
     } else if(e.code === "KeyR" && e.altKey) {
-        run();
+        frame.contentWindow.location.reload();
     }
 }
 
@@ -42,6 +49,5 @@ setTimeout(async () => {
 }, "1000");
 
 document.getElementById("uv-frame").addEventListener("load", (e) => {
-    console.log("hi");
     document.getElementById("uv-frame").contentWindow.addEventListener("keydown", keydown);
 });
