@@ -1,1 +1,1 @@
-node ~/sproxy/server.js
+node server.js

@@ -1,4 +1,4 @@
-import { createServer } from "node:http";
+import { createServer } from "node:https";
 import { join } from "node:path";
 import { hostname } from "node:os";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
@@ -7,6 +7,7 @@ import fastifyStatic from "@fastify/static";
 import { fileURLToPath } from 'node:url';
 import { dirname } from "node:path";
 import * as fs from "node:fs";
+import dotenv from 'dotenv';
 
 logging.set_level(logging.NONE);
 wisp.options.wisp_version = 2;
@@ -22,9 +23,16 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// https
+dotenv.config();
+const httpsOptions = {
+    key: fs.readFileSync(join(__dirname, process.env.key)),
+    cert: fs.readFileSync(join(__dirname, process.env.cert)),
+};
+
 const fastify = Fastify({
 	serverFactory: (handler) => {
-		return createServer()
+		return createServer(httpsOptions)
 			.on("request", (req, res) => {
                 res.setHeader("Content-Type", "text/plain");
 				res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
