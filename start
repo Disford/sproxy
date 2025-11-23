@@ -1,1 +1,3 @@
-node server.js
+cd ~/sproxy/
+npm run start
+cd ..
