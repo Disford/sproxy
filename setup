@@ -1,0 +1,11 @@
+pkg install nodejs python build-essential binutils vim golang -y
+mkdir -p ~/.gyp
+echo "{'variables': {'android_ndk_path': ''}}" > ~/.gyp/include.gypi
+go install filippo.io/mkcert@latest
+mv ~/sproxy/start .
+mv ~/sproxy/genkeys .
+chmod +x start
+chmod +x genkeys
+cd ~/sproxy/
+npm install
+cd ..
