@@ -19,7 +19,6 @@
     "dotenv": "^17.2.3",
     "fastify": "^5.4.0",
     "fastify-static": "^4.6.1",
-    "wisp-server-node": "^1.1.7",
     "ws": "^8.18.3"
   }
 }
