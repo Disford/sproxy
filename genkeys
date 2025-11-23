@@ -1,3 +1,3 @@
 ~/go/bin/mkcert $1 $1 ::1
 rm -f ./.env
-echo "cert='$1+2.pem'\nkey='$1+2-key.pem'" > .env
+echo -e "cert='$1+2.pem'\nkey='$1+2-key.pem'" > .env
